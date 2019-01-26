@@ -1,0 +1,10 @@
+2019-01-27 00:01:45,546 ### Initialization script ###
+2019-01-27 00:01:45,548 System: Java 10.0.1
+2019-01-27 00:01:45,549 Python version: 2.7.1
+2019-01-27 00:01:45,551 log level DEBUG
+2019-01-27 00:01:45,552 log level INFO
+2019-01-27 00:01:45,553 log level WARNING
+2019-01-27 00:01:45,555 log level ERROR
+2019-01-27 00:01:45,558 log level CRITICAL
+2019-01-27 00:01:47,171 Hint was found
+2019-01-27 00:01:51,461 ### Duration: 0:00:05.920000 ###
