@@ -56,7 +56,7 @@ def example_hover():
         logger.debug('Hint was found')
         popup('Hint was found')
     else:
-        logger.debug('log level DEBUG')
+        logger.debug('Hint not found')
         popup('Hint not found')
     wait(2);
 
