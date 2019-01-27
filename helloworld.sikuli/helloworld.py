@@ -51,17 +51,54 @@ logger.critical('log level CRITICAL')
 Settings.MoveMouseDelay = 0.5
 
 def example_hover():
-    hover("1548539831591.png");
+    hover("1548539831591.png")
     if bool(exists("1548539894118.png")):
         logger.debug('Hint was found')
         popup('Hint was found')
     else:
         logger.debug('Hint not found')
         popup('Hint not found')
-    wait(2);
+    wait(2)
+
+def example_click():
+    try:
+        click("1548607847431.png")
+# Same as click to coordinates
+#       click(Location(24, 700))
+        type("Hello World!")
+        wait(2)
+        type("a",KeyModifier.CTRL)
+        type(Key.BACKSPACE)
+        wait("1548608061432.png",5)
+        type(Key.ESC)
+        wait("1548607847431.png",5)
+        logger.debug('Search OK')
+        popup('Search OK')
+    except:
+        logger.debug('Search FAILED')
+        popup('Search FAILED')
+   
 
 # Main
 example_hover()
+example_click()
+
+# Loop and loop control (break, continue and pass)
+n = 5
+while n > 0:
+    if n == 4:
+        logger.debug('Cycle n=4')
+    if n == 3:
+        pass
+        logger.debug('Cycle n=3')
+    if n == 2:
+        n = n - 1
+        continue
+        logger.debug('Cycle n=2')
+    if n == 1:
+        break
+        logger.debug('Cycle n=1')
+    n = n - 1
 
 # Close script
 duration = datetime.now() - startTime
