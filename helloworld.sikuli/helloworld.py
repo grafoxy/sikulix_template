@@ -2,7 +2,6 @@ import time
 from datetime import datetime
 import math
 import random
-#import requests #ToDo https://answers.launchpad.net/sikuli/+question/222395
 import logging; reload(logging)
 import platform
 import shutil
@@ -128,7 +127,7 @@ def example_click():
         #logger.error('Exception '+str(e))
         logger.debug('Search FAILED')
         popup('Search FAILED')
-   
+
 
 # Main
 example_hover()
