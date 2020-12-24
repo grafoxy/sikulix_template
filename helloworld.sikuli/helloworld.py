@@ -5,6 +5,26 @@ import random
 #import requests #ToDo https://answers.launchpad.net/sikuli/+question/222395
 import logging; reload(logging)
 import platform
+import shutil
+import glob
+import os
+import platform
+from guide import *
+
+import fake
+
+# Clean up tmp folder
+tmpDir = os.path.join(os.getcwd(), 'tmp');
+files = glob.glob(os.path.join(tmpDir,'*'))
+for f in files:
+    os.remove(f)
+
+# For take screenshot on error used some_region:
+# SCREEN # for whole screen
+# App.focusedWindow() # for the frontmost window
+some_region = SCREEN
+
+# switchApp("Chrome");
 
 startTime = datetime.now()
 
@@ -18,7 +38,7 @@ logger=logging.getLogger('')
 logger.setLevel(logging.DEBUG)
 
 # Create file handler which logs even debug messages
-fh = logging.FileHandler('helloworld.log')
+fh = logging.FileHandler(os.path.join(tmpDir, 'logs.log'))
 fh.setLevel(logging.DEBUG)
 formatter = logging.Formatter(FORMAT)
 fh.setFormatter(formatter)
@@ -50,9 +70,16 @@ logger.critical('log level CRITICAL')
 #Setting it to 0 will switch off any animation
 Settings.MoveMouseDelay = 0.5
 
+notificaitonCenterIcon = "1608837173948.png";
+notificationsHint = "1608837210755.png";
+startButton = "1608837110616.png";
+searchIcon = "1548608061432.png";
+searchIconBig="1608839000768.png";
+
+
 def example_hover():
-    hover("1548539831591.png")
-    if bool(exists("1548539894118.png")):
+    hover(notificaitonCenterIcon)
+    if bool(exists(notificationsHint)):
         logger.debug('Hint was found')
         popup('Hint was found')
     else:
@@ -62,19 +89,43 @@ def example_hover():
 
 def example_click():
     try:
-        click("1548607847431.png")
-# Same as click to coordinates
-#       click(Location(24, 700))
+        text(startButton, "This is start button")
+        show(3)
+        click(startButton)
+        # Same as click to coordinates
+        #click(Location(24, 700))
         type("Hello World!")
-        wait(2)
+
+        wait(searchIconBig,5)
+        rectangle(searchIconBig)
+        show(3)
+
         type("a",KeyModifier.CTRL)
         type(Key.BACKSPACE)
-        wait("1548608061432.png",5)
+        wait(searchIcon,5)
         type(Key.ESC)
-        wait("1548607847431.png",5)
-        logger.debug('Search OK')
-        popup('Search OK')
+        wait(startButton,5)
+        logger.debug('Search "Hello World!": Done')
+
+        randomName = str(fake.name())
+        click(startButton)
+        type(randomName)
+        wait(5)
+        type("a",KeyModifier.CTRL)
+        type(Key.BACKSPACE)
+        wait(searchIcon,5)
+        type(Key.ESC)
+        wait(startButton,5)
+        logger.debug('Search '+randomName+': Done')
+        popup('Search "'+randomName+'": Done.\n Duration: '+str(datetime.now() - startTime)+'\n')
+
+        #Make screeenshot to log dir
+        img = capture(some_region)
+        print("Saved screen as "+str(img))
+        shutil.move(img, os.path.join(tmpDir, 'screenshot_'+str(n)+'.png'))
     except:
+    #except Exception as e:
+        #logger.error('Exception '+str(e))
         logger.debug('Search FAILED')
         popup('Search FAILED')
    
